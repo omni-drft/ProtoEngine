@@ -1,8 +1,8 @@
-#include "Core.h"
+#include "ProtoEngine.h"
 
 #include <iostream>
 
-namespace Core {
+namespace ProtoEngine {
 
 	void PrintHelloWorld()
 	{

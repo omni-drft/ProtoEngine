@@ -1,6 +1,7 @@
-#include "engine/Core.h"
+#include "engine/ProtoEngine.h"
 
 int main()
 {
-	Core::PrintHelloWorld();
+	ProtoEngine::PrintHelloWorld();
+	return 0;
 }

@@ -78,8 +78,8 @@ endif
 GENERATED :=
 OBJECTS :=
 
-GENERATED += $(OBJDIR)/Core.o
-OBJECTS += $(OBJDIR)/Core.o
+GENERATED += $(OBJDIR)/ProtoEngine.o
+OBJECTS += $(OBJDIR)/ProtoEngine.o
 
 # Rules
 # #############################################
@@ -143,7 +143,7 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/Core.o: src/engine/Core.cpp
+$(OBJDIR)/ProtoEngine.o: src/engine/ProtoEngine.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
