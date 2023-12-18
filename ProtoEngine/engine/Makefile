@@ -18,22 +18,13 @@ endif
 # Configurations
 # #############################################
 
-ifeq ($(origin CC), default)
-  CC = clang
-endif
-ifeq ($(origin CXX), default)
-  CXX = clang++
-endif
-ifeq ($(origin AR), default)
-  AR = ar
-endif
+RESCOMP = windres
 INCLUDES += -Isrc -I/usr/include
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
 LIBS += -lGL -lGLU -lglut
 LDDEPS +=
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -Wl,--no-undefined -static-libgcc -static-libstdc++
 LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
 define PREBUILDCMDS
 endef
@@ -44,27 +35,30 @@ endef
 
 ifeq ($(config),debug)
 TARGETDIR = ../bin/Debug/engine
-TARGET = $(TARGETDIR)/libengine.a
+TARGET = $(TARGETDIR)/engine.lib
 OBJDIR = ../bin/intermediates/Debug/engine
 DEFINES += -DDEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g /EHsc /Zc:preprocessor /Zc:__cplusplus
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17 /EHsc /Zc:preprocessor /Zc:__cplusplus
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -Wl,--no-undefined -static-libgcc -static-libstdc++
 
 else ifeq ($(config),release)
 TARGETDIR = ../bin/Release/engine
-TARGET = $(TARGETDIR)/libengine.a
+TARGET = $(TARGETDIR)/engine.lib
 OBJDIR = ../bin/intermediates/Release/engine
 DEFINES += -DRELEASE
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g -std=c++17
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g /EHsc /Zc:preprocessor /Zc:__cplusplus
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g -std=c++17 /EHsc /Zc:preprocessor /Zc:__cplusplus
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -Wl,--no-undefined -static-libgcc -static-libstdc++
 
 else ifeq ($(config),dist)
 TARGETDIR = ../bin/Dist/engine
-TARGET = $(TARGETDIR)/libengine.a
+TARGET = $(TARGETDIR)/engine.lib
 OBJDIR = ../bin/intermediates/Dist/engine
 DEFINES += -DDIST
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 /EHsc /Zc:preprocessor /Zc:__cplusplus
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17 /EHsc /Zc:preprocessor /Zc:__cplusplus
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s -Wl,--no-undefined -static-libgcc -static-libstdc++
 
 endif
 

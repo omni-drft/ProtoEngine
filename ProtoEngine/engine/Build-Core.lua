@@ -10,17 +10,24 @@ project "engine"
    includedirs
    {
         "src",
-        "/usr/include", -- GLUT headers are typically in /usr/include
+        "../vendor/GLEW/glew-2.1.0/include",
+        "../vendor/GLFW/glfw-3.3.9.bin.WIN64/include"
+
+   }
+
+   libdirs
+   {
+       "../vendor/GLEW/glew-2.1.0/lib/Release/x64",
+       "../vendor/GLFW/glfw-3.3.9.bin.WIN64/lib-vc2022"
    }
 
    links
     {
-        "GL",
-        "GLU",
-        "glut" -- Link the GLUT library
+        "glew32s.lib",
+        "glfw3.lib",
+        "opengl32.lib"
     }
 
-    linkoptions { "-Wl,--no-undefined", "-static-libgcc", "-static-libstdc++" }
 
    targetdir ("../bin/" .. OutputDir .. "/%{prj.name}")
    objdir ("../bin/intermediates/" .. OutputDir .. "/%{prj.name}")

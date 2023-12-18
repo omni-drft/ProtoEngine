@@ -1,7 +1,9 @@
 #pragma once
 
-#include "glad.h"
-#include <GL/freeglut.h>
+#define GLEW_STATIC
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include <iostream>
 

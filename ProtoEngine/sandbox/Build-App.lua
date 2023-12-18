@@ -1,7 +1,7 @@
 project "sandbox"
    kind "ConsoleApp"
    language "C++"
-   cppdialect "C++20"
+   cppdialect "C++17"
    targetdir "bin/%{cfg.buildcfg}"
    staticruntime "off"
 
@@ -10,17 +10,23 @@ project "sandbox"
    includedirs
    {
       "src",
+	  "../engine/src",
+      "../vendor/GLEW/glew-2.1.0/include",
+      "../vendor/GLFW/glfw-3.3.9.bin.WIN64/include"
+   }
 
-	  -- Include Core
-	  "../engine/src"
+   libdirs
+   {
+       "../vendor/GLEW/glew-2.1.0/lib/Release/x64",
+       "../vendor/GLFW/glfw-3.3.9.bin.WIN64/lib-vc2022"
    }
 
    links
    {
-      "engine",
-      "GL",
-      "GLU",
-      "glut"
+        "glew32s.lib",
+        "glfw3.lib",
+        "opengl32.lib",
+        "engine"
    }
 
    targetdir ("../bin/" .. OutputDir .. "/%{prj.name}")
