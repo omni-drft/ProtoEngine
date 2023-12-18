@@ -27,13 +27,13 @@ endif
 ifeq ($(origin AR), default)
   AR = ar
 endif
-INCLUDES += -Isrc
+INCLUDES += -Isrc -I/usr/include
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-LIBS +=
+LIBS += -lGL -lGLU -lglut
 LDDEPS +=
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -Wl,--no-undefined -static-libgcc -static-libstdc++
 LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
 define PREBUILDCMDS
 endef
@@ -48,7 +48,7 @@ TARGET = $(TARGETDIR)/libengine.a
 OBJDIR = ../bin/intermediates/Debug/engine
 DEFINES += -DDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++20
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
 
 else ifeq ($(config),release)
 TARGETDIR = ../bin/Release/engine
@@ -56,7 +56,7 @@ TARGET = $(TARGETDIR)/libengine.a
 OBJDIR = ../bin/intermediates/Release/engine
 DEFINES += -DRELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g -std=c++20
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g -std=c++17
 
 else ifeq ($(config),dist)
 TARGETDIR = ../bin/Dist/engine
@@ -64,7 +64,7 @@ TARGET = $(TARGETDIR)/libengine.a
 OBJDIR = ../bin/intermediates/Dist/engine
 DEFINES += -DDIST
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++20
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
 
 endif
 
@@ -79,7 +79,9 @@ GENERATED :=
 OBJECTS :=
 
 GENERATED += $(OBJDIR)/ProtoEngine.o
+GENERATED += $(OBJDIR)/glad.o
 OBJECTS += $(OBJDIR)/ProtoEngine.o
+OBJECTS += $(OBJDIR)/glad.o
 
 # Rules
 # #############################################
@@ -146,6 +148,9 @@ endif
 $(OBJDIR)/ProtoEngine.o: src/engine/ProtoEngine.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/glad.o: src/engine/glad.c
+	@echo "$(notdir $<)"
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
 -include $(OBJECTS:%.o=%.d)
 ifneq (,$(PCH))

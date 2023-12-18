@@ -47,7 +47,7 @@ OBJDIR = ../bin/intermediates/Debug/sandbox
 DEFINES += -DDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++20
-LIBS += ../bin/Debug/engine/libengine.a
+LIBS += ../bin/Debug/engine/libengine.a -lGL -lGLU -lglut
 LDDEPS += ../bin/Debug/engine/libengine.a
 
 else ifeq ($(config),release)
@@ -57,7 +57,7 @@ OBJDIR = ../bin/intermediates/Release/sandbox
 DEFINES += -DRELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g -std=c++20
-LIBS += ../bin/Release/engine/libengine.a
+LIBS += ../bin/Release/engine/libengine.a -lGL -lGLU -lglut
 LDDEPS += ../bin/Release/engine/libengine.a
 
 else ifeq ($(config),dist)
@@ -67,7 +67,7 @@ OBJDIR = ../bin/intermediates/Dist/sandbox
 DEFINES += -DDIST
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++20
-LIBS += ../bin/Dist/engine/libengine.a
+LIBS += ../bin/Dist/engine/libengine.a -lGL -lGLU -lglut
 LDDEPS += ../bin/Dist/engine/libengine.a
 
 endif

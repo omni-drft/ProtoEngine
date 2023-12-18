@@ -17,7 +17,10 @@ project "sandbox"
 
    links
    {
-      "engine"
+      "engine",
+      "GL",
+      "GLU",
+      "glut"
    }
 
    targetdir ("../bin/" .. OutputDir .. "/%{prj.name}")

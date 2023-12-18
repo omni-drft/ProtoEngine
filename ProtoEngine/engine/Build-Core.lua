@@ -1,7 +1,7 @@
 project "engine"
    kind "StaticLib"
    language "C++"
-   cppdialect "C++20"
+   cppdialect "C++17"
    targetdir "bin/%{cfg.buildcfg}"
    staticruntime "off"
 
@@ -9,8 +9,18 @@ project "engine"
 
    includedirs
    {
-      "src"
+        "src",
+        "/usr/include", -- GLUT headers are typically in /usr/include
    }
+
+   links
+    {
+        "GL",
+        "GLU",
+        "glut" -- Link the GLUT library
+    }
+
+    linkoptions { "-Wl,--no-undefined", "-static-libgcc", "-static-libstdc++" }
 
    targetdir ("../bin/" .. OutputDir .. "/%{prj.name}")
    objdir ("../bin/intermediates/" .. OutputDir .. "/%{prj.name}")
