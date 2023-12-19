@@ -6,6 +6,7 @@ namespace ProtoEngine
   {
     windowWidth = 800;
     windowHeight = 600;
+    windowTitle = "ProtoWindow";
   }
 
   Window::Window(int width, int height, const char* title) 

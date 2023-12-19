@@ -21,9 +21,6 @@ namespace ProtoEngine {
 
         GLFWwindow* getWindow() const;
     private:
-        static void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-            glViewport(0, 0, width, height);
-        }
 
         GLFWwindow* window;
 
